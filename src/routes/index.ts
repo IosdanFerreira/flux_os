@@ -1,9 +1,12 @@
 import { Router } from 'express';
+import { userController } from '../useCases/CreateUser';
 
 const routes = Router();
 
-routes.get('/', (req, res) => {
-    res.status(201).send('Rotas funcionando!');
-});
+routes.post(
+    '/signUp',
+    userController.signUpValidation,
+    userController.signUp
+);
 
 export {routes};

@@ -9,3 +9,165 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id       Int     @id @default(autoincrement())
+  name     String
+  surname  String?
+  email    String  @unique
+  password String
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  Client   Client[]
+  Service  Service[]
+  Vehicle  Vehicle[]
+  Employee Employee[]
+  worOrder WorkOrder[]
+
+  @@index([email])
+  @@map("users")
+}
+
+model Client {
+  id           Int     @id @default(autoincrement())
+  name         String
+  surname      String?
+  email        String  @unique
+  phone        String?
+  cpf          String
+  rg           String?
+  gender       String
+  cep          String
+  street       String
+  number_house String?
+  neighborhood String?
+  state        String?
+  city         String?
+
+  user_id Int
+  user    User @relation(fields: [user_id], references: [id])
+
+  created_at DateTime    @default(now())
+  updated_at DateTime    @updatedAt
+  Vehicle    Vehicle[]
+  work_order WorkOrder[]
+
+  @@index([email, name, surname, cpf])
+  @@map("clients")
+}
+
+model Service {
+  id             Int     @id @default(autoincrement())
+  name           String
+  price          BigInt
+  description    String?
+  estimated_time String
+
+  user_id Int
+  user    User @relation(fields: [user_id], references: [id])
+
+  Work_order WorkOrder[]
+
+  @@index([id, name])
+  @@map("services")
+}
+
+model Vehicle {
+  id       Int     @id @default(autoincrement())
+  make     String
+  model    String
+  color    String
+  comments String?
+
+  client_id Int
+  client    Client? @relation(fields: [client_id], references: [id])
+
+  user_id Int
+  user    User @relation(fields: [user_id], references: [id])
+
+  WorkOrder WorkOrder[]
+
+  @@index([make, model])
+  @@map("vehicles")
+}
+
+model Employee {
+  id           Int     @id @default(autoincrement())
+  name         String
+  surname      String?
+  email        String  @unique
+  phone        String?
+  comission    BigInt
+  cpf          String
+  rg           String?
+  gender       String
+  cep          String
+  street       String
+  number_house String?
+  neighborhood String?
+  state        String?
+  city         String?
+  comments     String?
+
+  user_id Int
+  user    User @relation(fields: [user_id], references: [id])
+
+  WorkOrder WorkOrder[]
+
+  @@index([email, name, surname, cpf])
+  @@map("employees")
+}
+
+model PaymentForm {
+  id         Int         @id @default(autoincrement())
+  name       String
+  work_order WorkOrder[]
+
+  @@map("payment_forms")
+}
+
+model PaymentSituation {
+  id         Int         @id @default(autoincrement())
+  name       String
+  work_order WorkOrder[]
+
+  @@map("payment_situations")
+}
+
+model WorkOrder {
+  id   Int    @id @default(autoincrement())
+  date String
+
+  client_id Int
+  client    Client? @relation(fields: [client_id], references: [id])
+
+  vehicle_id Int
+  vehicle    Vehicle? @relation(fields: [vehicle_id], references: [id])
+
+  employee_id Int
+  employee    Employee? @relation(fields: [employee_id], references: [id])
+
+  services Service[]
+
+  payment_form_id Int
+  payment_form    PaymentForm @relation(fields: [payment_form_id], references: [id])
+
+  init_date String
+  init_time String
+
+  end_date String
+  end_time String
+
+  payment_situation_id Int?
+  payment_situation    PaymentSituation? @relation(fields: [payment_situation_id], references: [id])
+
+  comments String?
+
+  user_id Int
+  user    User @relation(fields: [user_id], references: [id])
+
+  @@index([date])
+  @@map("work_orders")
+}

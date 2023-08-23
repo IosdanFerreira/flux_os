@@ -1,4 +1,5 @@
 import express from 'express';
+import './shared/services/YupTranslate';
 import 'dotenv/config';
 import { routes } from './routes';
 
