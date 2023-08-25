@@ -1,6 +1,6 @@
 import { ICreateUserRequestDTO } from './CreateUserDTO';
-import { prismaClient } from '../../shared/services/PrismaClient';
-import { passwordCrypto } from '../../shared/services/PasswordCrypto';
+import { prismaClient } from '../../../shared/services/PrismaClient';
+import { passwordCrypto } from '../../../shared/services/PasswordCrypto';
 
 
 export const createUser = async (user:  ICreateUserRequestDTO): Promise<number | Error> => {

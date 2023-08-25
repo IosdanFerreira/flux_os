@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { validation } from '../../shared/middleware/Validation';
+import { validation } from '../../../shared/middleware/Validation';
 import { ICreateUserRequestDTO } from './CreateUserDTO';
 import * as yup from 'yup';
 import { createUser } from './CreateUserUseCase';
@@ -11,7 +11,7 @@ interface IBody extends ICreateUserRequestDTO {}
 export const signUpValidation = validation((getSchema) => ({
     body: getSchema<IBody>(yup.object().shape({
         name: yup.string().required().min(3),
-        surname: yup.string().min(3),
+        surname: yup.string().nullable().min(3),
         email: yup.string().email().required(),
         password: yup.string().min(8).required(),
     }))

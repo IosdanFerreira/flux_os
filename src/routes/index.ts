@@ -1,12 +1,27 @@
 import { Router } from 'express';
-import { userController } from '../useCases/CreateUser';
+
+import { usersUseCase } from '../useCases/User';
+import { clientsUseCase } from '../useCases/Client';
 
 const routes = Router();
 
+// Users routes
 routes.post(
     '/signUp',
-    userController.signUpValidation,
-    userController.signUp
+    usersUseCase.signUpValidation,
+    usersUseCase.signUp
+);
+routes.post(
+    '/signIn',
+    usersUseCase.signInValidation,
+    usersUseCase.sigIn
+);
+
+// Clients routes
+routes.post(
+    '/clients/insert',
+    clientsUseCase.createClientValidation,
+    clientsUseCase.createClient,
 );
 
 export {routes};
