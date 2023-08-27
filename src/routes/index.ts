@@ -28,5 +28,10 @@ routes.get(
     clientsUseCase.getAllClientsValidation,
     clientsUseCase.getAllClients,
 );
+routes.get(
+    '/clients/getById/:id',
+    clientsUseCase.getClientByIdValidation,
+    clientsUseCase.getClientById,
+);
 
 export {routes};
