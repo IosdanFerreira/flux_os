@@ -23,5 +23,10 @@ routes.post(
     clientsUseCase.createClientValidation,
     clientsUseCase.createClient,
 );
+routes.get(
+    '/clients/getAll/:id',
+    clientsUseCase.getAllClientsValidation,
+    clientsUseCase.getAllClients,
+);
 
 export {routes};

@@ -17,5 +17,7 @@ export const findByEmail = async (email: string): Promise<User | Error> => {
     } catch (error) {
         console.log(error);
         return new Error('Erro ao consultar registro');
+    } finally {
+        await prismaClient.$disconnect();
     }
 };

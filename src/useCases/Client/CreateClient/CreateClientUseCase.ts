@@ -13,8 +13,15 @@ export const insertUserInDB = async (client: ICreateClientRequestDTO): Promise<n
         if(createdClient) return createdClient.id;
     
         return new Error('Erro ao cadastrar cliente');
-    } catch (error) {
+    } catch (error: any) {
         console.log(error);
+
+        if (error.meta.target == 'email') {
+            return new Error('Já existe um usuário cadastrado com esse endereço de email');
+        }
+
         return new Error('Erro ao cadastrar cliente');
+    } finally {
+        await prismaClient.$disconnect();
     }
 };

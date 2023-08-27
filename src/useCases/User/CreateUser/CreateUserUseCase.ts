@@ -26,5 +26,7 @@ export const createUser = async (user:  ICreateUserRequestDTO): Promise<number |
         }
 
         return new Error('Erro ao cadastrar usuário');
+    } finally {
+        await prismaClient.$disconnect();
     }
 };
