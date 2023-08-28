@@ -33,5 +33,10 @@ routes.get(
     clientsUseCase.getClientByIdValidation,
     clientsUseCase.getClientById,
 );
+routes.put(
+    '/clients/updateById/:id',
+    clientsUseCase.updateClientByIdValidation,
+    clientsUseCase.updateClientById,
+);
 
 export {routes};

@@ -19,8 +19,7 @@ export const getAllClientsValidation = validation((getSchema) => ({
     query: getSchema<IQuery>(yup.object().shape({
         page: yup.number().moreThan(0),
         limit: yup.number().moreThan(0),
-        filter: yup.string().min(1),
-        id: yup.number().integer().default(0).required(),
+        filter: yup.string().min(3),
     })),
     params: getSchema<IParams>(yup.object().shape({
         id: yup.number().integer().default(0).required(),
@@ -49,6 +48,9 @@ export const getAllClients = async (request: Request<IParams, {}, {}, IQuery>, r
             }
         });
     }
+
+    response.setHeader('access-control-expose-headers', 'x-total-count');
+    response.setHeader('x-total-count', Number(count));
 
     return response.status(StatusCodes.OK).json(allClients);
 };

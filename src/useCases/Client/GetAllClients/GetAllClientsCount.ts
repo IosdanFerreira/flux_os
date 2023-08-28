@@ -22,5 +22,4 @@ export const getAllClientsCount = async (filter:string = ''): Promise<number | E
     } finally {
         await prismaClient.$disconnect();
     }
-    
 };
