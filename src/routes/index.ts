@@ -38,5 +38,10 @@ routes.put(
     clientsUseCase.updateClientByIdValidation,
     clientsUseCase.updateClientById,
 );
+routes.delete(
+    '/clients/deleteById/:id',
+    clientsUseCase.deleteClientByIdValidation,
+    clientsUseCase.deleteClientById,
+);
 
 export {routes};

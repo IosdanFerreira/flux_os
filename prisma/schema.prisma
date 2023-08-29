@@ -82,7 +82,7 @@ model Vehicle {
   comments String?
 
   client_id Int
-  client    Client? @relation(fields: [client_id], references: [id])
+  client    Client? @relation(fields: [client_id], references: [id], onDelete: Cascade)
 
   user_id Int
   user    User @relation(fields: [user_id], references: [id])
@@ -160,8 +160,8 @@ model WorkOrder {
   end_date String
   end_time String
 
-  payment_situation_id Int?
-  payment_situation    PaymentSituation? @relation(fields: [payment_situation_id], references: [id])
+  payment_situation_id Int
+  payment_situation    PaymentSituation @relation(fields: [payment_situation_id], references: [id])
 
   comments String?
 

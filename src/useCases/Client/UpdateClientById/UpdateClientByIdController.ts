@@ -15,7 +15,6 @@ interface IQuery {
     client_id?: number
 }
 
-
 export const updateClientByIdValidation = validation((getSchema) => ({
     body: getSchema<IBody>(yup.object().shape({
         name: yup.string().required().min(3),
@@ -39,7 +38,6 @@ export const updateClientByIdValidation = validation((getSchema) => ({
         client_id: yup.number().required().default(0).integer()
     })),
 }));
-
 
 export const updateClientById = async (request: Request<IParams, {}, IBody, IQuery>, response: Response) => {
 

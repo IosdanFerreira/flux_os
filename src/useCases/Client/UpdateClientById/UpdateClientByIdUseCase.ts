@@ -32,5 +32,7 @@ export const updateClientByIdUseCase = async (user_id: number, client_id: number
     } catch (error) {
         console.log(error);
         return new Error(`Erro ao atualizar registro - ${error}`);
+    } finally {
+        await prismaClient.$disconnect();
     }
 };
