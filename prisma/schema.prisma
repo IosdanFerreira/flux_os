@@ -61,7 +61,7 @@ model Client {
 model Service {
   id             Int     @id @default(autoincrement())
   name           String
-  price          BigInt
+  price          Int
   description    String?
   estimated_time String
 

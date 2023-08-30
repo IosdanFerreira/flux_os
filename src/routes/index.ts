@@ -2,6 +2,7 @@ import { Router } from 'express';
 
 import { usersUseCase } from '../useCases/User';
 import { clientsUseCase } from '../useCases/Client';
+import { servicesUseCase } from '../useCases/Services';
 
 const routes = Router();
 
@@ -44,4 +45,30 @@ routes.delete(
     clientsUseCase.deleteClientById,
 );
 
+// Services routes
+routes.post(
+    '/services/insert',
+    servicesUseCase.createServiceValidation,
+    servicesUseCase.createService
+);
+routes.get(
+    '/services/getAll/:id',
+    servicesUseCase.getAllServicesValidation,
+    servicesUseCase.getAllServices
+);
+routes.get(
+    '/services/getById/:id',
+    servicesUseCase.getServiceByIdValidation,
+    servicesUseCase.getServiceById
+);
+routes.put(
+    '/services/updateById/:id',
+    servicesUseCase.updateServiceByIdValidation,
+    servicesUseCase.updateServiceById
+);
+routes.delete(
+    '/services/deleteById/:id',
+    servicesUseCase.deleteServiceByIdValidation,
+    servicesUseCase.deleteServiceById
+);
 export {routes};
