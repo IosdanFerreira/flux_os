@@ -15,7 +15,15 @@ export const getClientByIdUseCase = async (user_id: number, client_id: number): 
         if(!clientById?.id) {
             return new Error('Nenhum registro encontrado!');
         } else if(clientById) {
-            return clientById;
+
+            const {...client} = clientById;
+
+            const clientWithoutUserId = {
+                ...client,
+                user_id: undefined
+            };
+
+            return clientWithoutUserId;
         }
         
         return new Error('Erro ao consultar cliente por id');

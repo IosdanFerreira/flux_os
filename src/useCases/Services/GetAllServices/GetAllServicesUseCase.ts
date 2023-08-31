@@ -23,7 +23,14 @@ export const getAllServicesUseCase = async (page: number, filter: string, limit:
             }
         });
 
-        if(allServices) return allServices.Service;
+        if(allServices) {
+            const allServicesWhitouthUserId = allServices.Service.map(service => ({
+                ...service,
+                user_id: undefined
+            }));
+
+            return allServicesWhitouthUserId;
+        }
         
         return new Error('Erro ao consultar todos os serviços');
     } catch (error) {

@@ -78,6 +78,7 @@ model Vehicle {
   id       Int     @id @default(autoincrement())
   make     String
   model    String
+  plate    String
   color    String
   comments String?
 
@@ -141,13 +142,13 @@ model WorkOrder {
   date String
 
   client_id Int
-  client    Client? @relation(fields: [client_id], references: [id])
+  client    Client? @relation(fields: [client_id], references: [id], onDelete: NoAction)
 
   vehicle_id Int
-  vehicle    Vehicle? @relation(fields: [vehicle_id], references: [id])
+  vehicle    Vehicle? @relation(fields: [vehicle_id], references: [id], onDelete: NoAction)
 
   employee_id Int
-  employee    Employee? @relation(fields: [employee_id], references: [id])
+  employee    Employee? @relation(fields: [employee_id], references: [id], onDelete: NoAction)
 
   services Service[]
 

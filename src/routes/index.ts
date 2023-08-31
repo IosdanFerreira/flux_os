@@ -3,6 +3,7 @@ import { Router } from 'express';
 import { usersUseCase } from '../useCases/User';
 import { clientsUseCase } from '../useCases/Client';
 import { servicesUseCase } from '../useCases/Services';
+import { vehiclesUseCase } from '../useCases/Vehicles';
 
 const routes = Router();
 
@@ -70,5 +71,32 @@ routes.delete(
     '/services/deleteById/:id',
     servicesUseCase.deleteServiceByIdValidation,
     servicesUseCase.deleteServiceById
+);
+
+// Vehicles routes
+routes.post(
+    '/vehicles/insert',
+    vehiclesUseCase.createVehicleValidation,
+    vehiclesUseCase.createVehicle
+);
+routes.get(
+    '/vehicles/getAll/:id',
+    vehiclesUseCase.getAllVehiclesValidation,
+    vehiclesUseCase.getAllVehicles,
+);
+routes.get(
+    '/vehicles/getById/:id',
+    vehiclesUseCase.getVehicleByIdValidation,
+    vehiclesUseCase.getVehicleById,
+);
+routes.put(
+    '/vehicles/updateById/:id',
+    vehiclesUseCase.updateVehicleByIdValidation,
+    vehiclesUseCase.updateVehicleById,
+);
+routes.delete(
+    '/vehicles/deleteById/:id',
+    vehiclesUseCase.deleteVehicleByIdValidation,
+    vehiclesUseCase.deleteVehicleById,
 );
 export {routes};

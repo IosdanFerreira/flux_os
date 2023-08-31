@@ -24,7 +24,16 @@ export const GetAllClientsUseCase = async (page: number, filter: string, limit: 
             }
         });
 
-        if(allClients) return allClients.Client;
+        if(allClients) {
+
+            const allClientWithoutUserId = allClients.Client.map(client => ({
+                ...client,
+                user_id: undefined
+            }));
+
+
+            return allClientWithoutUserId; 
+        } 
     
         return new Error('Erro ao consultar todos os clientes');
     } catch (error) {
