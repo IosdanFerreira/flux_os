@@ -5,6 +5,9 @@
   "repository": "https://github.com/IosdanFerreira/flux_os.git",
   "author": "Iosdan Ferreira <iosdanprferreira@gmail.com>",
   "license": "MIT",
+  "prisma": {
+    "seed": "ts-node-dev ./src/seeds/index.ts"
+  },
   "scripts": {
     "dev": "ts-node-dev --transpile-only --respawn --ignore-watch node_modules  ./src/index.ts"
   },
