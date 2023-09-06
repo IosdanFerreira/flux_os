@@ -1,4 +1,4 @@
-import { IClient } from '../../../entities/Client';
+import { IWorkOrders } from '../../../entities/WorkOrders';
 
 
-export interface ICreateClientRequestDTO extends Omit<IClient, 'id'> {}
+export interface ICreateWorkOrderRequestDTO extends Omit<IWorkOrders, 'id'> {}

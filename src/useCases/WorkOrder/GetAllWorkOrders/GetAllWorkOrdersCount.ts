@@ -1,14 +1,22 @@
 import { prismaClient } from '../../../shared/services/PrismaClient';
 
 
-export const getAllClientsCount = async (filter:string = ''): Promise<number | Error> => {
+export const getAllClientsCount = async (init:string = '', end:string = ''): Promise<number | Error> => {
     try {
 
-        const allClientsCount = await prismaClient.client.count({
+        const allClientsCount = await prismaClient.workOrder.count({
             where:{
-                OR:[
-                    {name:  {contains: filter}},
-                    {surname: {contains: filter}},
+                AND:[
+                    {
+                        init_date: {
+                            gte: init
+                        }
+                    },
+                    {
+                        end_date: {
+                            lte: end
+                        }
+                    }
                 ]
             }
         });

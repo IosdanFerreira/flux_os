@@ -7,6 +7,7 @@ import { vehiclesUseCase } from '../useCases/Vehicles';
 import { employeesUseCase } from '../useCases/Employee';
 import { paymentOptionsUseCase } from '../useCases/PaymentOptions';
 import { paymentSituationsUseCase } from '../useCases/PaymentSituations';
+import { workOrderUseCase } from '../useCases/WorkOrder';
 
 const routes = Router();
 
@@ -128,6 +129,28 @@ routes.delete(
     '/employees/deleteById/:id',
     employeesUseCase.deleteEmployeeByIdValidation,
     employeesUseCase.deleteEmployeeById,
+);
+
+// Work Order routes
+routes.post(
+    '/workOrder/insert',
+    workOrderUseCase.createWorkOrderValidation,
+    workOrderUseCase.createWorkOrder
+);
+routes.get(
+    '/workOrder/getAll/:id',
+    workOrderUseCase.getAllWorkOrdersValidation,
+    workOrderUseCase.getAllWorkOrders
+);
+routes.get(
+    '/workOrder/getById/:id',
+    workOrderUseCase.getWorkOrderByIdValidation,
+    workOrderUseCase.getWorkOrderById
+);
+routes.put(
+    '/workOrder/updateById/:id',
+    workOrderUseCase.updateWorkOrderByIdValidation,
+    workOrderUseCase.updateWorkOrderById
 );
 
 // Payment Options routes

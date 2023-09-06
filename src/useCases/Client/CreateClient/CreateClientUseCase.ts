@@ -15,10 +15,7 @@ export const insertUserInDB = async (client: ICreateClientRequestDTO): Promise<n
         return new Error('Erro ao cadastrar cliente');
     } catch (error: any) {
         console.log(error);
-
-        if (error.meta.target == 'email') {
-            return new Error('Já existe um usuário cadastrado com esse endereço de email');
-        }
+        console.log(error);
 
         return new Error('Erro ao cadastrar cliente');
     } finally {

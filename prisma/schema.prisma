@@ -20,11 +20,12 @@ model User {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
-  Client   Client[]
-  Service  Service[]
-  Vehicle  Vehicle[]
-  Employee Employee[]
-  worOrder WorkOrder[]
+  Client               Client[]
+  Service              Service[]
+  Vehicle              Vehicle[]
+  Employee             Employee[]
+  worOrder             WorkOrder[]
+  ServicesOnWorkOrders ServicesOnWorkOrders[]
 
   @@index([email])
   @@map("users")
@@ -131,7 +132,7 @@ model Service {
   user_id Int
   user    User @relation(fields: [user_id], references: [id])
 
-  Work_order ServicesOnWorkOrders[]
+  ServicesOnWorkOrders ServicesOnWorkOrders[]
 
   @@index([id, name])
   @@map("services")
@@ -149,8 +150,7 @@ model WorkOrder {
   employee_id Int
   employee    Employee? @relation(fields: [employee_id], references: [id], onDelete: NoAction)
 
-  services_id Int[]
-  services    ServicesOnWorkOrders[]
+  ServicesOnWorkOrders ServicesOnWorkOrders[]
 
   payment_form_id Int
   payment_form    PaymentForm @relation(fields: [payment_form_id], references: [id])
@@ -177,10 +177,17 @@ model WorkOrder {
 }
 
 model ServicesOnWorkOrders {
+  id           Int       @default(autoincrement())
   service_id   Int
-  Service      Service   @relation(fields: [service_id], references: [id])
+  service      Service   @relation(fields: [service_id], references: [id])
   workOrder_id Int
-  WorkOrder    WorkOrder @relation(fields: [workOrder_id], references: [id])
+  workOrder    WorkOrder @relation(fields: [workOrder_id], references: [id])
+
+  added_at DateTime @default(now())
+
+  user_id Int
+  user    User @relation(fields: [user_id], references: [id])
 
   @@id([service_id, workOrder_id])
+  @@map("services_on_work_orders")
 }
