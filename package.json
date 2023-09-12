@@ -11,7 +11,7 @@
   "scripts": {
     "dev": "ts-node-dev --transpile-only --respawn --ignore-watch node_modules  ./src/index.ts",
     "test": "jest",
-    "vercel-build": "npx prisma migrate deploy && npm prisma db seed"
+    "vercel-build": "npx prisma migrate deploy && npx prisma db seed"
   },
   "devDependencies": {
     "@types/jest": "^29.5.4",
