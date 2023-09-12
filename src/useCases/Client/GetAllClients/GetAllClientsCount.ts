@@ -1,6 +1,5 @@
 import { prismaClient } from '../../../shared/services/PrismaClient';
 
-
 export const getAllClientsCount = async (filter:string = ''): Promise<number | Error> => {
     try {
 
