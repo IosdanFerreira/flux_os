@@ -10,7 +10,8 @@
   },
   "scripts": {
     "dev": "ts-node-dev --transpile-only --respawn --ignore-watch node_modules  ./src/index.ts",
-    "test": "jest"
+    "test": "jest",
+    "vercel-build": "npx prisma migrate deploy"
   },
   "devDependencies": {
     "@types/jest": "^29.5.4",
