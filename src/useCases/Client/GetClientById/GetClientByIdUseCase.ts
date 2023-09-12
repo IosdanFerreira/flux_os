@@ -5,7 +5,7 @@ import { IGetClientByIdRequestDTO } from './GetClientByIdDTO';
 export const getClientByIdUseCase = async (user_id: number, client_id: number): Promise<IGetClientByIdRequestDTO | Error> => {
     try {
 
-        const clientById = await prismaClient.client.findFirst({
+        const clientById = await prismaClient.client.findUnique({
             where: {
                 user_id: user_id,
                 id: client_id
@@ -14,21 +14,15 @@ export const getClientByIdUseCase = async (user_id: number, client_id: number): 
 
         if(!clientById?.id) {
             return new Error('Nenhum registro encontrado!');
-        } else if(clientById) {
+        } else {
 
-            const {...client} = clientById;
-
-            const clientWithoutUserId = {
-                ...client,
-                user_id: undefined
-            };
-
-            return clientWithoutUserId;
+            return clientById;
         }
         
-        return new Error('Erro ao consultar cliente por id');
     } catch (error) {
         console.log(error);
         return new Error('Erro ao consultar cliente por id');
+    } finally {
+        await prismaClient.$disconnect();
     }
 };

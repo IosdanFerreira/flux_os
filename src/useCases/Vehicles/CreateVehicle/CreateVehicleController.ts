@@ -14,7 +14,7 @@ export const createVehicleValidation = validation((getSchema) => ({
         model: yup.string().required(),
         plate: yup.string().required(),
         color: yup.string().required(),
-        comments: yup.string().nullable(),
+        comments: yup.string().required(),
         user_id: yup.number().required().integer(),
         client_id: yup.number().required().integer()
     }))

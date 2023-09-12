@@ -6,31 +6,13 @@ export const getAllServicesUseCase = async (page: number, filter: string, limit:
 
     try {
 
-        const allServices = await prismaClient.user.findUnique({
+        const allServices = await prismaClient.service.findMany({
             where:{
-                id: user_id
+                user_id: user_id
             },
-            include:{
-                Service:{
-                    where: {
-                        OR: [
-                            {name: {contains: filter}},
-                        ]
-                    },
-                    skip: (page - 1) * limit,
-                    take: limit 
-                }
-            }
         });
 
-        if(allServices) {
-            const allServicesWhitouthUserId = allServices.Service.map(service => ({
-                ...service,
-                user_id: undefined
-            }));
-
-            return allServicesWhitouthUserId;
-        }
+        if(allServices) return allServices;
         
         return new Error('Erro ao consultar todos os serviços');
     } catch (error) {

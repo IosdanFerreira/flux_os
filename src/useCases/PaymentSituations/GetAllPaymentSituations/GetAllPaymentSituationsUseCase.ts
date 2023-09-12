@@ -21,5 +21,7 @@ export const getAllPaymentSituationsUseCase = async (page: number, filter: strin
     } catch (error) {
         console.log(error);
         return new Error('Erro ao consultar as situações de pagamento');
+    } finally {
+        prismaClient.$disconnect();
     }
 };

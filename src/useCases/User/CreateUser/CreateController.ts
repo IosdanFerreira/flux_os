@@ -11,7 +11,7 @@ interface IBody extends ICreateUserRequestDTO {}
 export const signUpValidation = validation((getSchema) => ({
     body: getSchema<IBody>(yup.object().shape({
         name: yup.string().required().min(3),
-        surname: yup.string().nullable().min(3),
+        surname: yup.string().required().min(3),
         email: yup.string().email().required(),
         password: yup.string().min(8).required(),
     }))

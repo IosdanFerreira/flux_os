@@ -31,7 +31,7 @@ export const updateVehicleByIdUseCase = async (user_id: number, vehicle_id: numb
         return new Error('Erro ao atualizar registro');
     } catch (error) {
         console.log(error);
-        return new Error(`Erro ao atualizar registro - ${error}`);
+        return new Error('Erro ao atualizar registro');
     } finally {
         await prismaClient.$disconnect();
     }

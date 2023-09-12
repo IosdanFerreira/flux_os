@@ -21,5 +21,7 @@ export const getAllPaymentOptionsUseCase = async (page: number, filter: string, 
     } catch (error) {
         console.log(error);
         return new Error('Erro ao consultar as opções de pagamento');
+    } finally {
+        prismaClient.$disconnect();
     }
 };

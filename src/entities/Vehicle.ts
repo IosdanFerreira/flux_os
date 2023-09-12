@@ -4,7 +4,7 @@ export interface IVehicle {
   model: string;
   plate: string;
   color: string;
-  comments?: string | null;
+  comments: string | null;
   client_id: number
   user_id: number
 }

@@ -6,34 +6,13 @@ export const getAllEmployeesUseCase = async (page: number, filter: string, limit
 
     try {
 
-        const allEmployees = await prismaClient.user.findUnique({
+        const allEmployees = await prismaClient.employee.findMany({
             where:{
-                id: user_id
-            },
-            include:{
-                Employee:{
-                    where: {
-                        OR: [
-                            {name: {contains: filter}},
-                            {surname: {contains: filter}},
-                            {cpf: {contains: filter}},
-                        ]
-                    },
-                    skip: (page - 1) * limit,
-                    take: limit
-                }
+                user_id: user_id
             }
         });
 
-        if(allEmployees) {
-
-            const allVehiclesWhitClients = allEmployees.Employee.map(employee => ({
-                ...employee,
-                user_id: undefined,
-            }));
-
-            return allVehiclesWhitClients;
-        }
+        if(allEmployees) return allEmployees;
         
         return new Error('Erro ao consultar todos os funcionários');
     } catch (error) {

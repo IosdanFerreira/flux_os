@@ -5,7 +5,7 @@ import { IGetEmployeeByIdRequestDTO } from './GetEmployeeByIdDTO';
 export const getEmployeeByIdUseCase = async (user_id: number, employee_id: number): Promise<IGetEmployeeByIdRequestDTO | Error> => {
     try {
 
-        const employeeById = await prismaClient.employee.findFirst({
+        const employeeById = await prismaClient.employee.findUnique({
             where: {
                 user_id: user_id,
                 id: employee_id,
@@ -14,19 +14,11 @@ export const getEmployeeByIdUseCase = async (user_id: number, employee_id: numbe
 
         if(!employeeById?.id) {
             return new Error('Nenhum registro encontrado!');
-        } else if(employeeById) {
+        } else {
 
-            const {...employeeData} = employeeById;
-
-            const employeeWithoutUserId = {
-                ...employeeData,
-                user_id: undefined,
-            };
-
-            return employeeWithoutUserId;
+            return employeeById;
         }
-        
-        return new Error('Erro ao consultar funcionário por id');
+
     } catch (error) {
         console.log(error);
         return new Error('Erro ao consultar funcionário por id');

@@ -5,6 +5,10 @@ import * as yup from 'yup';
 import { findByEmail } from './FindByEmailUseCase';
 import { StatusCodes } from 'http-status-codes';
 import { passwordCrypto } from '../../../shared/services/PasswordCrypto';
+import {sign} from 'jsonwebtoken';
+import { generateRefreshToken } from '../../../shared/services/GenerateRefreshToken';
+import { generateTokenProvider } from '../../../shared/services/GenerateTokenProvider';
+import { prismaClient } from '../../../shared/services/PrismaClient';
 
 
 interface IBody extends IFindByEmailRequestDTO {}
@@ -39,6 +43,16 @@ export const sigIn = async (request: Request<{}, {}, IBody>, response:Response) 
             }
         });
     }
+
+    const token = await generateTokenProvider(authUser.id);
+
+    await prismaClient.refrehToken.deleteMany({
+        where:{
+            user_id: authUser.id
+        }
+    });
+
+    const refreshToken = await generateRefreshToken(authUser.id);
     
-    return response.status(StatusCodes.OK).json({...authUser, acessToken: 'teste.teste.teste'});
+    return response.status(StatusCodes.OK).json({...authUser, token, refreshToken});
 };

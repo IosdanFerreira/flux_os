@@ -2,6 +2,22 @@ import { prismaClient } from '../../../shared/services/PrismaClient';
 import { IGetWorkOrderByIdRequestDTO } from './GetWorkOrderByIdDTO';
 
 
+const handleFormattedWorkOrderResult = (work_order: IGetWorkOrderByIdRequestDTO) => {
+
+    const formattedWorkOrder = {
+        ...work_order,
+        client_id: undefined,
+        user_id: undefined,
+        employee_id: undefined,
+        vehicle_id: undefined,
+        payment_form_id: undefined,
+        payment_situation_id: undefined
+    };
+
+    return formattedWorkOrder;
+
+};
+
 export const getClientByIdUseCase = async (user_id: number, work_order_id: number): Promise<IGetWorkOrderByIdRequestDTO | Error> => {
     try {
 
@@ -36,19 +52,9 @@ export const getClientByIdUseCase = async (user_id: number, work_order_id: numbe
             return new Error('Nenhum registro encontrado!');
         } else if(workOrderById) {
 
-            const {...work_order} = workOrderById;
+            const formattedWorkOrder =handleFormattedWorkOrderResult(workOrderById);
 
-            const clientWithoutUserId = {
-                ...work_order,
-                client_id: undefined,
-                user_id: undefined,
-                employee_id: undefined,
-                vehicle_id: undefined,
-                payment_form_id: undefined,
-                payment_situation_id: undefined
-            };
-
-            return clientWithoutUserId;
+            return formattedWorkOrder;
         }
         
         return new Error('Erro ao consultar Ordem de Serviço por id');

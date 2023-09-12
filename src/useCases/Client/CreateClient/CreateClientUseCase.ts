@@ -1,7 +1,7 @@
 import { prismaClient } from '../../../shared/services/PrismaClient';
 import { ICreateClientRequestDTO } from './CreateClientDTO';
 
-export const insertUserInDB = async (client: ICreateClientRequestDTO): Promise<number | Error> => {
+export const createClientUseCase = async (client: ICreateClientRequestDTO): Promise<number | Error> => {
     try {
 
         const createdClient = await prismaClient.client.create({

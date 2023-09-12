@@ -12,7 +12,7 @@ export const createServiceValidation = validation((getSchema) => ({
     body: getSchema<IBody>(yup.object().shape({
         name: yup.string().required().min(3),
         price: yup.number().required(),
-        description: yup.string().nullable(),
+        description: yup.string().required(),
         estimated_time: yup.string().required(),
         user_id: yup.number().required().integer(),
     }))

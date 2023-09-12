@@ -26,6 +26,7 @@ model User {
   Employee             Employee[]
   worOrder             WorkOrder[]
   ServicesOnWorkOrders ServicesOnWorkOrders[]
+  refresh_token        RefrehToken?
 
   @@index([email])
   @@map("users")
@@ -190,4 +191,13 @@ model ServicesOnWorkOrders {
 
   @@id([service_id, workOrder_id])
   @@map("services_on_work_orders")
+}
+
+model RefrehToken {
+  id         Int   @id @default(autoincrement())
+  expires_in Int
+  user_id    Int?  @unique
+  user       User? @relation(fields: [user_id], references: [id])
+
+  @@map("refresh_token")
 }
