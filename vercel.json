@@ -6,7 +6,7 @@
         "use": "@vercel/node",
         "config": {
             "prisma": "generate",
-            "seed": "node src/seeds/index.ts"
+            "seed": "src/seeds/index.ts"
           }
     }
 ],
