@@ -21,7 +21,7 @@ export const updateVehicleByIdValidation = validation((getSchema) => ({
         model: yup.string().required(),
         plate: yup.string().required(),
         color: yup.string().required(),
-        comments: yup.string().nullable(),
+        comments: yup.string().required(),
     })),
     params: getSchema<IParams>(yup.object().shape({
         id: yup.number().required().default(0).integer()

@@ -18,18 +18,18 @@ interface IQuery {
 export const updateClientByIdValidation = validation((getSchema) => ({
     body: getSchema<IBody>(yup.object().shape({
         name: yup.string().required().min(3),
-        surname: yup.string().nullable().min(3),
+        surname: yup.string().required().min(3),
         email: yup.string().required().email(),
-        phone: yup.string().nullable(),
+        phone: yup.string().required(),
         cpf: yup.string().required(),
-        rg: yup.string().nullable(),
+        rg: yup.string().required(),
         gender: yup.string().required(),
         cep: yup.string().required(),
         street: yup.string().required(),
-        number_house: yup.string().nullable(),
-        neighborhood: yup.string().nullable(),
-        state: yup.string().nullable(),
-        city: yup.string().nullable(),
+        number_house: yup.string().required(),
+        neighborhood: yup.string().required(),
+        state: yup.string().required(),
+        city: yup.string().required(),
     })),
     params: getSchema<IParams>(yup.object().shape({
         id: yup.number().required().default(0).integer()
