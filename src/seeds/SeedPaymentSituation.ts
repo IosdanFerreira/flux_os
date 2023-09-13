@@ -11,7 +11,7 @@ export const seedPaymentSituations = async () => {
 
     paymentSituations.map(async (paymentSituation) => {
 
-        const paymentOptionsCount = await prismaClient.paymentForm.count({
+        const paymentOptionsCount = await prismaClient.paymentSituation.count({
             where:{
                 id: paymentSituation.id
             }

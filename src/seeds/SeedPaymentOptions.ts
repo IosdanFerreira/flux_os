@@ -7,7 +7,7 @@ export const seedPaymentOptions = async () => {
         {id: 2, name: 'Cartão de Débito'},
         {id: 3, name: 'Dinheiro'},
         {id: 4, name: 'PIX'},
-        {id: 5 , name: 'Boleto'},
+        {id: 5, name: 'Boleto'},
     ]; 
 
     paymentOptions.map(async (paymentOption) => {
