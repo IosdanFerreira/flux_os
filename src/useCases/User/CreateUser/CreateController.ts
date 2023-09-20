@@ -23,7 +23,7 @@ export const signUp = async (request: Request<{}, {}, IBody>, response: Response
 
     if (userCreated instanceof Error) {
         return response.status(StatusCodes.BAD_REQUEST).json({
-            error:{
+            errors:{
                 message: userCreated.message
             }
         });
